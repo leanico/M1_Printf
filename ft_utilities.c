@@ -1,6 +1,6 @@
 
 
-static int	ft_putnbr(int n)
+static int	ft_putnbr(int n) // chequear de dividirlo en 2
 {
 	long	nb;
 	int		count;

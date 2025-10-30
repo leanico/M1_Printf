@@ -5,13 +5,9 @@ int	ft_printf(char const *, ...)
 	int	count;
 	int	res;
 	int	c;
-
-	int len;
-	char *s;
 	int n;
-	int num;
 	unsigned int n2;
-	void *p;
+
 
 	count  = 0;
 
@@ -37,41 +33,39 @@ int	ft_printf(char const *, ...)
 			return (-1); 
 		count = res + count;		
 	}	
-	
-	else if (*format == 's') // tiene que ser para char*
+	else if (*format == 's')
 	{
 		s = va_arg(list, char *);
-		if(s == NULL)
-			s = "(null)";
-		len = ft_strlen (s);
-		res = write(1, s, len);
-		if (res == -1) 
-			return (-1); 
-		count = res + count;	
+		res = ft_putstr(s);
+		if (res == -1)
+			return (-1);
+		count = count + res;	
 	}
 	else if (*format == 'd' || *format == 'i') // funcionan igual de cara a printf
 	{
 		n = va_arg(list, int);
-		num = ft_putnbr(n);
-		if (num == -1) 
+		res = ft_putnbr(n);
+		if (res == -1) 
 			return (-1);     
-		count = count + num; 
+		count = count + res; 
 	}
 	else if (*format == 'u')
 	{
 		n2 = va_arg(list, unsigned int);
-		num = ft_putnbr(n2);
-		if (num == -1) 
+		res = ft_putnbr(n2);
+		if (res == -1) 
 			return (-1);     
-		count = count + num; 
+		count = count + res; 
 	}
-	else if (*format == 'p') // void*
+
+	void p;
+	else if (*format == 'p') // void* - imprime direcciones de memoria en hexadecimal arrancando por 0x
 	{
 		p = va_arg(list, void *);
-		num = ft_putnbr(p);
-		if (num == -1) 
+		res = ft_printptr((unsigned long long)p);
+		if (res == -1) 
 			return (-1);     
-		count = count + num; 
+		count = count + res; 
 	}
 	else 
     {
@@ -90,6 +84,7 @@ int	ft_printf(char const *, ...)
 	va_end(list);
 	return (count);
 	}
+}
 // dejar en printf las VA - mandar las comprobaciones de if a otra funcion
 
 		// Lógica para %c - crear variable para cada caso
