@@ -11,12 +11,13 @@ static int	ft_putnbr(int n);
 static int	ft_putchar(char c);
 static size_t	ft_strlen(const char *str);
 static int	ft_print_char(int c);
-static int	ft_print_unsigned(unsigned int n);
+// static int	ft_print_unsigned(unsigned int n);
 static int	ft_putstr(char *s);
 static int	ft_printptr(unsigned long long n);
 static int	ft_hex_base(unsigned long long n);
 static int	ft_hex_base_up(unsigned long long n);
-static char	*ft_uitoa(int n);
+// static char	*ft_uitoa(unsigned int n);
+// static size_t	ft_strlen2(unsigned int n);
 
 int	ft_printf(char const *format, ...)
 {
@@ -38,6 +39,7 @@ int	ft_printf(char const *format, ...)
 			format++;
 			if (*format == 'c')
 			{
+				format++;
 				c = va_arg(list, int);
 				res = ft_print_char(c);
 				if (res == -1)
@@ -46,6 +48,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == '%')
 			{
+				format++;
 				res = write (1, "%", 1);
 				if (res == -1)
 					return (-1);
@@ -53,6 +56,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 's')
 			{
+				format++;
 				s = va_arg(list, char *);
 				res = ft_putstr(s);
 				if (res == -1)
@@ -61,6 +65,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 'd' || *format == 'i')
 			{
+				format++;
 				n = va_arg(list, int);
 				res = ft_putnbr(n);
 				if (res == -1)
@@ -69,6 +74,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 'u')
 			{
+				format++;
 				n2 = va_arg(list, unsigned int);
 				res = ft_putnbr(n2);
 				if (res == -1)
@@ -77,6 +83,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 'p')
 			{
+				format++;
 				p = va_arg(list, void *);
 				res = ft_printptr((unsigned long long)p);
 				if (res == -1)
@@ -85,6 +92,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 'x')
 			{
+				format++;
 				n2 = va_arg(list, unsigned int);
 				res = ft_hex_base(n2);
 				if (res == -1)
@@ -93,6 +101,7 @@ int	ft_printf(char const *format, ...)
 			}
 			else if (*format == 'X')
 			{
+				format++;
 				n2 = va_arg(list, unsigned int);
 				res = ft_hex_base_up(n2);
 				if (res == -1)
@@ -101,15 +110,23 @@ int	ft_printf(char const *format, ...)
 			}
 			else
 			{
+				format++;
 				res = write(1, format, 1);
 				if (res == -1)
 					return (-1);
 				count = count + res;
 				format++;
 			}
+		}
+		else
+		{
+			res = write(1, format, 1);
+			if (res == -1)
+				return (-1);
+			count = count + res;
 			format++;
 		}
-	}
+}
 	va_end(list);
 	return (count);
 }
@@ -127,28 +144,28 @@ static int	ft_print_char(int c)
 	return (count);
 }
 
-static int	ft_print_unsigned(unsigned int n)
-{
-	int		res;
-	int		count;
-	char	*s;
-	int		len;
+// static int	ft_print_unsigned(unsigned int n)
+// {
+// 	int		res;
+// 	int		count;
+// 	char	*s;
+// 	int		len;
 
-	count = 0;
-	s = ft_uitoa(n);
-	if (s == NULL)
-		return(-1);
-	len = ft_strlen (s);
-	res = write(1, s, len);
-	if (res == -1)
-	{
-		free(s);
-		return (-1);
-	}
-	free(s);
-	count = res + count;
-	return (count);
-}
+// 	count = 0;
+// 	s = ft_uitoa(n);
+// 	if (s == NULL)
+// 		return(-1);
+// 	len = ft_strlen (s);
+// 	res = write(1, s, len);
+// 	if (res == -1)
+// 	{
+// 		free(s);
+// 		return (-1);
+// 	}
+// 	free(s);
+// 	count = res + count;
+// 	return (count);
+// }
 
 static int	ft_putstr(char *s)
 {
@@ -284,30 +301,42 @@ static size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-static char	*ft_uitoa(unsigned int n)
-{
-	int		len;
-	long	copy;
-	char	*str;
-	int		i;
+// static size_t	ft_strlen2(unsigned int n)
+// {
+// 	unsigned int	i;
 
-	copy = n;
-	len = ft_strlen(n);
-	str = (char *) malloc(len + 1);
-	if (str == NULL)
-		return (NULL);
-	str[len] = '\0';
-	i = len - 1;
-	if (copy == 0)
-		str[0] = '0';
-	while (copy > 0)
-	{
-		str[i] = ((copy % 10) + '0');
-		copy = copy / 10;
-		i--;
-	}
-	return (str);
-}
+// 	i = 0;
+// 	while (n != 0)
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
+
+// static char	*ft_uitoa(unsigned int n)
+// {
+// 	int		len;
+// 	long	copy;
+// 	char	*str;
+// 	int		i;
+
+// 	copy = n;
+// 	len = ft_strlen2(n);
+// 	str = (char *) malloc(len + 1);
+// 	if (str == NULL)
+// 		return (NULL);
+// 	str[len] = '\0';
+// 	i = len - 1;
+// 	if (copy == 0)
+// 		str[0] = '0';
+// 	while (copy > 0)
+// 	{
+// 		str[i] = ((copy % 10) + '0');
+// 		copy = copy / 10;
+// 		i--;
+// 	}
+// 	return (str);
+// }
 
 int	main(void)
 {
@@ -319,40 +348,40 @@ int	main(void)
 	unsigned int unum = 424242;
 	void *ptr = &num;
 
-	printf("=== TEST DE ft_printf ===\n\n");
+	printf("=== TEST DE ft_printf ===\n");
 
 	// %c
-	ret1 = ft_printf("Mi char: %c\n", c);
-	ret2 = printf("Oficial:  %c\n\n", c);
+	ret1 = ft_printf("Mi char: %c \n", c);
+	ret2 = printf("Oficial:  %c \n", c);
 
-	// %s
+	// // %s
 	ret1 = ft_printf("Mi string: %s\n", str);
 	ret2 = printf("Oficial:   %s\n\n", str);
 
-	// %d y %i
+	// // %d y %i
 	ret1 = ft_printf("Mi decimal: %d\n", num);
 	ret2 = printf("Oficial:    %d\n\n", num);
 
 	ret1 = ft_printf("Mi entero con %%i: %i\n", num);
 	ret2 = printf("Oficial con %%i:    %i\n\n", num);
 
-	// %u
+	// // %u
 	ret1 = ft_printf("Mi unsigned: %u\n", unum);
 	ret2 = printf("Oficial:     %u\n\n", unum);
 
-	// %x
+	// // %x
 	ret1 = ft_printf("Mi hexa minúscula: %x\n", unum);
 	ret2 = printf("Oficial:           %x\n\n", unum);
 
-	// %X
+	// // %X
 	ret1 = ft_printf("Mi hexa MAYÚSCULA: %X\n", unum);
 	ret2 = printf("Oficial:           %X\n\n", unum);
 
-	// %p
+	// // // %p
 	ret1 = ft_printf("Mi puntero: %p\n", ptr);
 	ret2 = printf("Oficial:    %p\n\n", ptr);
 
-	// %%
+	// // // %%
 	ret1 = ft_printf("Porcentaje: %%\n");
 	ret2 = printf("Oficial:    %%\n\n");
 
