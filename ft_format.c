@@ -27,25 +27,21 @@ int	ft_print_char(int c)
 
 int	ft_print_unsigned(unsigned int n)
 {
-	int		res;
-	int		count;
-	char	*s;
+	char	x;
 	int		len;
 
-	count = 0;
-	s = ft_uitoa(n);
-	if (s == NULL)
-		return (-1);
-	len = ft_strlen (s);
-	res = write(1, s, len);
-	if (res == -1)
+	len = 0;
+	if (n > 9)
 	{
-		free(s);
-		return (-1);
+		len += ft_print_unsigned(n / 10);
+		len += ft_print_unsigned(n % 10);
 	}
-	free(s);
-	count = res + count;
-	return (count);
+	else
+	{
+		x = n + '0';
+		len += write(1, &x, 1);
+	}
+	return (len);
 }
 
 int	ft_printptr(unsigned long long n)

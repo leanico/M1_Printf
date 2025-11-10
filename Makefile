@@ -9,7 +9,6 @@ ARFLAGS = rcs
 SRC = ft_printf.c\
 		ft_utilities.c\
 		ft_format.c\
-		ft_num_utilities.c\
 		ft_helpers.c\
 		ft_helpers2.c\
 

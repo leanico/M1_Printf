@@ -15,11 +15,6 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <stddef.h>
-# include <limits.h>
-# include <stdio.h>
-# include <stdint.h>
-# include <stdlib.h>
 
 int		ft_printf(char const *format, ...);
 int		ft_putnbr(int n);
@@ -30,9 +25,7 @@ int		ft_putstr(char *s);
 int		ft_printptr(unsigned long long n);
 int		ft_hex_base(unsigned long long n);
 int		ft_hex_base_up(unsigned long long n);
-char	*ft_uitoa(unsigned int n);
 size_t	ft_strlen(const char *str);
-int		ft_numlen(unsigned int n);
 int		ft_case_c(va_list list);
 int		ft_case_s(va_list list);
 int		ft_case_di(va_list list);
@@ -40,7 +33,6 @@ int		ft_case_u(va_list list);
 int		ft_case_p(va_list list);
 int		ft_case_xup(va_list list);
 int		ft_case_xlow(va_list list);
-int		ft_printf_aux(char c, va_list list);
 int		ft_handleformat(char const *format, va_list list);
 
 #endif
