@@ -28,20 +28,30 @@ int	ft_print_char(int c)
 int	ft_print_unsigned(unsigned int n)
 {
 	char	x;
-	int		len;
+	int		count;
+	int		res;
 
-	len = 0;
+	count = 0;
 	if (n > 9)
 	{
-		len += ft_print_unsigned(n / 10);
-		len += ft_print_unsigned(n % 10);
+		res = ft_print_unsigned(n / 10);
+		if (res == -1)
+			return (-1);
+		count += res;
+		res = ft_print_unsigned(n % 10);
+		if (res == -1)
+			return (-1);
+		count += res;
 	}
 	else
 	{
 		x = n + '0';
-		len += write(1, &x, 1);
+		res = write(1, &x, 1);
+		if (res == -1)
+			return (-1);
+		count += res;
 	}
-	return (len);
+	return (count);
 }
 
 int	ft_printptr(unsigned long long n)
