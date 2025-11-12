@@ -1,4 +1,4 @@
-#include "printf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 int	main(void)
@@ -47,8 +47,6 @@ int	main(void)
 	// %%
 	ret1 = ft_printf("Porcentaje: %%\n");
 	ret2 = printf("Oficial:    %%\n\n");
-
-	ft_printf("Mis retornos: ft_printf=%d | printf=%d\n", ret1, ret2);
 
 	return (0);
 }

@@ -12,18 +12,6 @@
 
 #include "ft_printf.h"
 
-int	ft_case_c(va_list list)
-{
-	int	res;
-	int	c;
-
-	c = va_arg(list, int);
-	res = ft_print_char(c);
-	if (res == -1)
-		return (-1);
-	return (res);
-}
-
 int	ft_case_s(va_list list)
 {
 	char	*s;
@@ -48,18 +36,6 @@ int	ft_case_di(va_list list)
 	return (res);
 }
 
-int	ft_case_p(va_list list)
-{
-	void	*p;
-	int		res;
-
-	p = va_arg(list, void *);
-	res = ft_printptr((unsigned long long)p);
-	if (res == -1)
-		return (-1);
-	return (res);
-}
-
 int	ft_case_u(va_list list)
 {
 	unsigned int	n2;
@@ -67,6 +43,18 @@ int	ft_case_u(va_list list)
 
 	n2 = va_arg(list, unsigned int);
 	res = ft_print_unsigned(n2);
+	if (res == -1)
+		return (-1);
+	return (res);
+}
+
+int	ft_case_p(va_list list)
+{
+	void	*p;
+	int		res;
+
+	p = va_arg(list, void *);
+	res = ft_printptr((unsigned long long)p);
 	if (res == -1)
 		return (-1);
 	return (res);

@@ -12,44 +12,50 @@
 
 #include "ft_printf.h"
 
-int	ft_print_char(int c)
+int	ft_putnbr(int n)
 {
-	int	res;
-	int	count;
+	int		len;
+	char	c;
 
-	count = 0;
-	res = write (1, &c, 1);
-	if (res == -1)
-		return (-1);
-	count = res + count;
-	return (count);
+	len = 0;
+	if (n == -2147483648)
+	{
+		len += write(1, "-2147483648", 11);
+		return (len);
+	}
+	if (n < 0)
+	{
+		len += write(1, "-", 1);
+		len += ft_putnbr(-n);
+	}
+	else if (n > 9)
+	{
+		len += ft_putnbr(n / 10);
+		len += ft_putnbr(n % 10);
+	}
+	else
+	{
+		c = n + '0';
+		len += write(1, &c, 1);
+	}
+	return (len);
 }
 
 int	ft_print_unsigned(unsigned int n)
 {
-	char	x;
+	char	c;
 	int		count;
-	int		res;
 
 	count = 0;
 	if (n > 9)
 	{
-		res = ft_print_unsigned(n / 10);
-		if (res == -1)
-			return (-1);
-		count += res;
-		res = ft_print_unsigned(n % 10);
-		if (res == -1)
-			return (-1);
-		count += res;
+		count += ft_print_unsigned(n / 10);
+		count += ft_print_unsigned(n % 10);
 	}
 	else
 	{
-		x = n + '0';
-		res = write(1, &x, 1);
-		if (res == -1)
-			return (-1);
-		count += res;
+		c = n + '0';
+		count += write(1, &c, 1);
 	}
 	return (count);
 }

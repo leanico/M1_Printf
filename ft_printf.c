@@ -18,7 +18,7 @@ int	ft_handleformat(char const *format, va_list list)
 
 	count = 0;
 	if (*format == 'c')
-		count += ft_case_c(list);
+		count += ft_putchar((char)va_arg(list, int));
 	else if (*format == '%')
 		count += write(1, "%", 1);
 	else if (*format == 's')
@@ -33,10 +33,6 @@ int	ft_handleformat(char const *format, va_list list)
 		count += ft_case_xlow(list);
 	else if (*format == 'X')
 		count += ft_case_xup(list);
-	else
-		return (0);
-	if (count == -1)
-		return (-1);
 	return (count);
 }
 
