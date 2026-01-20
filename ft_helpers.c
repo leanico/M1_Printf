@@ -19,8 +19,6 @@ int	ft_case_s(va_list list)
 
 	s = va_arg(list, char *);
 	res = ft_putstr(s);
-	if (res == -1)
-		return (-1);
 	return (res);
 }
 
@@ -31,8 +29,6 @@ int	ft_case_di(va_list list)
 
 	n = va_arg(list, int);
 	res = ft_putnbr(n);
-	if (res == -1)
-		return (-1);
 	return (res);
 }
 
@@ -43,8 +39,6 @@ int	ft_case_u(va_list list)
 
 	n2 = va_arg(list, unsigned int);
 	res = ft_print_unsigned(n2);
-	if (res == -1)
-		return (-1);
 	return (res);
 }
 
